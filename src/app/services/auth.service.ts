@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase';
+import { auth } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 export class AuthService {
 
   constructor(
+    private db: AngularFirestore,
     private AFAuth: AngularFireAuth) { }
 
   getUser() {
@@ -16,13 +17,14 @@ export class AuthService {
   }
 
   login() {
-    this.AFAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+    this.AFAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider())
       .then(val => {
-        console.log(val);
+        this.db.collection('Users').add({ test: 'sdfsf' });
       });
   }
 
   logout() {
     this.AFAuth.auth.signOut();
   }
+
 }

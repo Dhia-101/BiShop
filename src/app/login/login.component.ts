@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -9,7 +12,9 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent {
 
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private db: AngularFirestore,
+    private authService: AuthService) {
 
   }
 
@@ -21,5 +26,11 @@ export class LoginComponent {
     this.authService.logout();
   }
 
+  test() {
+    this.authService.getUser()
+      .subscribe(val => {
+        console.log(val);
+      });
+  }
 
 }
