@@ -9,11 +9,20 @@ import { AuthService } from '../services/auth.service';
 export class NavBarComponent {
 
   user;
+  isAdmin;
 
   constructor(private authService: AuthService) {
     authService.getUser()
       .subscribe(val => {
         this.user = val;
       });
+
+
+
   }
+
+  logout() {
+    console.log(this.isAdmin);
+  }
+
 }
