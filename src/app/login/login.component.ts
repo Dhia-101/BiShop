@@ -24,14 +24,11 @@ export class LoginComponent implements AfterViewInit {
     this.AFAuth.auth.getRedirectResult().then(result => {
       console.log(result);
       if (result.user && result.additionalUserInfo.isNewUser) {
-        this.db.collection('Users').add({ email: result.user.email, displayName: result.user.displayName, photoURL: result.user.photoURL, isAdmin: false });
+        this.db.doc('Users/' + result.user.uid).set({ email: result.user.email, displayName: result.user.displayName, photoURL: result.user.photoURL, isAdmin: false });
       }
     });
 
-    this.authService.getUser()
-      .subscribe(val => {
-        this.isAdmin = val;
-      });
+
   }
 
 
@@ -44,8 +41,13 @@ export class LoginComponent implements AfterViewInit {
   }
 
   test() {
-
-
+    // this.authService.getUser()
+    //   .subscribe(val => {
+    //     this.db.collection('Users').doc(val.uid).valueChanges().subscribe(val2 => {
+    //       console.log(val2);
+    //     });
+    //   });
+    this.authService.isAdmin().subscribe(val => { console.log(val); });
   }
 
 }

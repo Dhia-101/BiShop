@@ -23,6 +23,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthService } from './services/auth.service';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,11 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     NgbModule,
     AngularFirestoreModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AuthGuardService,
+    AdminAuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
