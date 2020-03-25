@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app';
 import { map, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AuthService {
   test;
   constructor(
     private db: AngularFirestore,
-    private AFAuth: AngularFireAuth) {
+    private AFAuth: AngularFireAuth,
+    private router: Router) {
     this.test = false;
   }
 
@@ -35,6 +37,7 @@ export class AuthService {
 
   logout() {
     this.AFAuth.auth.signOut();
+    this.router.navigate(['/home']);
   }
 
   saveUser(val) {

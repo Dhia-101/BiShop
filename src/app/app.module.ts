@@ -25,6 +25,10 @@ import { AuthService } from './services/auth.service';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './services/category.service';
+import { FormsModule } from '@angular/forms';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,8 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +53,16 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    FormsModule,
     AngularFirestoreModule
   ],
   providers: [
     AuthService,
+    ProductService,
+    // singular naming convention qm
     AuthGuardService,
-    AdminAuthGuard
+    AdminAuthGuard,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })
