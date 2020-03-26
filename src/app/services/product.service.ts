@@ -11,4 +11,11 @@ export class ProductService {
   create(product) {
     this.db.collection('Products').add(product);
   }
+
+  getAllData() {
+    return this.db.collection('Products').valueChanges();
+  }
+  getAllId() {
+    return this.db.collection('Products').snapshotChanges();
+  }
 }

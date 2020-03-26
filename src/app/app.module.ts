@@ -30,6 +30,8 @@ import { CategoryService } from './services/category.service';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './services/product.service';
 
+import { CustomFormsModule } from 'ng2-validation'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +56,7 @@ import { ProductService } from './services/product.service';
     AngularFireAuthModule,
     NgbModule,
     FormsModule,
+    CustomFormsModule,
     AngularFirestoreModule
   ],
   providers: [

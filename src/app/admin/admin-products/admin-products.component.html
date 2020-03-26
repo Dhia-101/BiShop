@@ -1,1 +1,22 @@
-<a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+<p>
+    <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</p>
+<table class="table mt-2">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of products$ | async">
+            <td>{{ p.title }}</td>
+            <td>{{ p.price }} TND</td>
+            <td>
+                <a [routerLink]="['/admin/products/']">Edit</a>
+            </td>
+        </tr>
+        <!-- brackets to generate dynamically qm -->
+    </tbody>
+</table>
