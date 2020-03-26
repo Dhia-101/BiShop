@@ -11,10 +11,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let p of products$ | async">
-            <td>{{ p.title }}</td>
-            <td>{{ p.price }} TND</td>
+            <td>{{ p.product?.title }}</td>
+            <td>{{ p.product?.price }} TND</td>
             <td>
-                <a [routerLink]="['/admin/products/']">Edit</a>
+                <a [routerLink]="['/admin/products/', p.id]">Edit</a>
             </td>
         </tr>
         <!-- brackets to generate dynamically qm -->

@@ -11,14 +11,16 @@ import { mergeMap, map } from 'rxjs/operators';
 export class AdminProductsComponent implements OnInit {
 
   products$;
-  ids$;
   // dollar per convention qm
   constructor(private productService: ProductService) {
     // this.products$ = zip(this.productService.getAllData(), this.productService.getAllId());
     this.products$ = productService.getAllData();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.products$
+      .subscribe(x => console.log(x));
+  }
 
 
 
