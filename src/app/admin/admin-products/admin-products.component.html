@@ -1,6 +1,8 @@
 <p>
     <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
+<p><input #query (keyup)="Filter(query.value)" type="text" class="form-control" placeholder="Search..."></p>
+
 <table class="table mt-2">
     <thead>
         <tr>
@@ -10,11 +12,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let p of products$ | async">
-            <td>{{ p.product?.title }}</td>
-            <td>{{ p.product?.price }} TND</td>
+        <tr *ngFor="let p of filteredProducts">
+            <td>{{ p.title }}</td>
+            <td>{{ p.price }} TND</td>
             <td>
-                <a [routerLink]="['/admin/products/', p.id]">Edit</a>
+                <a [routerLink]="['/admin/products/', p.uid]">Edit</a>
             </td>
         </tr>
         <!-- brackets to generate dynamically qm -->

@@ -11,11 +11,40 @@ export class ProductService {
 
   create(product) {
     const uid = uuidv4();
-    this.db.doc('/Products/' + uid).set({ id: uid, product });
+    // random id generator qm
+    this.db.doc('/Products/' + uid).set({
+      uid,
+      title: product.title,
+      price: product.price,
+      category: product.category,
+      imageURL: product.imageURL
+
+
+    });
   }
 
   getAllData() {
     return this.db.collection('Products').valueChanges();
+  }
+
+  getProd(productId) {
+    return this.db.doc('/Products/' + productId).valueChanges();
+  }
+
+  update(uid, product) {
+    this.db.doc('/Products/' + uid).set({
+      uid,
+      title: product.title,
+      price: product.price,
+      category: product.category,
+      imageURL: product.imageURL
+
+
+    });
+  }
+
+  delete(id) {
+    this.db.doc('/Products/' + id).delete();
   }
 
 }

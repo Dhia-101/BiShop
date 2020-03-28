@@ -23,9 +23,10 @@ const routes: Routes = [
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AdminAuthGuard] },
+  { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AdminAuthGuard] },
   { path: 'admin/products', component: AdminProductsComponent, canActivate: [AdminAuthGuard] },
   { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AdminAuthGuard] },
-  { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AdminAuthGuard] },
   { path: 'my/orders', component: MyOrdersComponent }
 ];
 
