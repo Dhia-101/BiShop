@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { Product } from 'src/app/models/Product';
 // take closes the subscription automatically after taking a(decided number of values) value
 // another way to close the subscription is to use on destroy interface qm
 
@@ -13,7 +14,8 @@ import { take } from 'rxjs/operators';
 })
 export class ProductFormComponent implements OnInit {
   categories$;
-  prod;
+  prod = {};
+  // initialize async items qm
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,19 +37,20 @@ export class ProductFormComponent implements OnInit {
   }
 
   save(product) {
-    if (this.prod) {
-      this.productService.update(this.prod.id, product);
+    if (this.prod === {}) {
+      this.productService.update(this.prod.uid, product);
     } else {
       this.productService.create(product);
     }
     this.router.navigate(['/admin/products']);
+    console.log(this.prod);
   }
 
   delete() {
     if (!confirm('Are you sure you want to delete this product?')) {
       return;
     }
-    this.productService.delete(this.prod.id);
+    this.productService.delete(this.prod.uid);
     // when deleting something always give confirmation qm
     this.router.navigate(['/admin/products']);
   }

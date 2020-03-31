@@ -15,8 +15,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: ProductsComponent },
+  { path: 'home', component: ProductsComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
