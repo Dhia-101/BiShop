@@ -14,7 +14,7 @@ import { Product } from 'src/app/models/Product';
 })
 export class ProductFormComponent implements OnInit {
   categories$;
-  prod = {};
+  prod;
   // initialize async items qm
   constructor(
     private route: ActivatedRoute,
@@ -32,19 +32,17 @@ export class ProductFormComponent implements OnInit {
     }
   }
   // start upper case new name and class name start upper case qm
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   save(product) {
-    if (this.prod === {}) {
+    if (this.prod) {
       this.productService.update(this.prod.uid, product);
     } else {
       this.productService.create(product);
     }
     this.router.navigate(['/admin/products']);
-    console.log(this.prod);
   }
+
 
   delete() {
     if (!confirm('Are you sure you want to delete this product?')) {

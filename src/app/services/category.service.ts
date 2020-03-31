@@ -10,6 +10,6 @@ export class CategoryService {
   constructor(private db: AngularFirestore) { }
 
   getCategories() {
-    return this.db.collection('Categories', ref => ref.orderBy('name')).valueChanges();
+    return this.db.collection('Categories', ref => ref.orderBy('title')).valueChanges();
   }
 }
