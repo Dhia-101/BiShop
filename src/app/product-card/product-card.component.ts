@@ -21,8 +21,12 @@ export class ProductCardComponent implements OnInit {
       });
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
+  addToCart() {
+    this.cartService.addOrRemove(this.product, 1);
+  }
+
+  removeFromCart() {
+    this.cartService.addOrRemove(this.product, -1);
   }
 
 }

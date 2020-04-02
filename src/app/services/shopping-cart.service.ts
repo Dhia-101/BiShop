@@ -35,16 +35,22 @@ export class ShoppingCartService {
     return result.id;
   }
 
-  async addToCart(product: Product) {
+  async addOrRemove(product: Product, n) {
     let cart = await this.addOrGetCart();
 
     this.getItem(cart, product.uid).pipe(take(1)).subscribe(p => {
       if (p.exists) {
-        const increment = firebase.firestore.FieldValue.increment(1);
+        const increment = firebase.firestore.FieldValue.increment(n);
         this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).update(({ quantity: increment }));
       } else
         this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, quantity: 1 });
     });
 
   }
+
+  async prodSum() {
+    const cartId = await this.addOrGetCart();
+    return this.db.collection('shopping-cart').doc(cartId).collection('items').valueChanges();
+  }
+
 }

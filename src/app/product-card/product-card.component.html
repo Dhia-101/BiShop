@@ -8,13 +8,13 @@
                 class="btn btn-secondary btn-block">Add to Cart</button>
             <ng-template #updateQuantity class="btns no-gutters row">
                 <div class="col-2">
-                    <button class="btn btn-secondary btn-block">-</button>
+                    <button (click)="removeFromCart(product)" class="btn btn-secondary btn-block">-</button>
                 </div>
                 <div class="col-8 text-center">
                     {{ quantity }} in Cart
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-secondary btn-block">+</button>
+                    <button (click)="addToCart(product)" class=" btn btn-secondary btn-block">+</button>
                 </div>
             </ng-template>
         </div>

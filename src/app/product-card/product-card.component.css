@@ -10,3 +10,7 @@
 .btns{
     display: inline;
 }
+
+.btn{
+    cursor: pointer;
+}
