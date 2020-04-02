@@ -1,0 +1,12 @@
+.card-footer{
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.card-body{
+    padding: 0;
+}
+
+.btns{
+    display: inline;
+}

@@ -30,7 +30,10 @@ import { CategoryService } from './services/category.service';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './services/product.service';
 
-import { CustomFormsModule } from 'ng2-validation'
+import { CustomFormsModule } from 'ng2-validation';
+import { ProductsFilterComponent } from './products-filter/products-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component'
+import { ShoppingCartService } from './services/shopping-cart.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { CustomFormsModule } from 'ng2-validation'
     AdminOrdersComponent,
     LoginComponent,
     SignupComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductsFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,8 @@ import { CustomFormsModule } from 'ng2-validation'
     // singular naming convention qm
     AuthGuardService,
     AdminAuthGuard,
-    CategoryService
+    CategoryService,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })

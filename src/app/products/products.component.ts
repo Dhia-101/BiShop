@@ -1,45 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
-import { CategoryService } from '../services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/Product';
+import { switchMap } from 'rxjs/operators';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent{
   products: Product[];
   filteredProducts: Product[];
-  categories$;
+
+
   category: string;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private categorieService: CategoryService
+    private cartService: ShoppingCartService
+    // if constructor takes too many arguments or too many imports non 
+    // top that's a sign(class doing to many thigs qm) you need to brake it into smaller components qm
   ) {
-    productService.getAllData().subscribe((products: Product[]) => {
+    productService.getAllData().pipe(switchMap((products: Product[]) => {
       this.products = products;
-      this.filteredProducts = products;
-    });
-    this.categories$ = categorieService.getCategories();
-    route.queryParamMap.subscribe(params => {
+      return route.queryParamMap;
+    })).subscribe(params => {
       this.category = params.get('category');
-      this.filteredProducts = this.products;
-
+      this.filteredProducts = this.category ?
+        this.products.filter(p => p.category === this.category) :
+        this.products;
     });
 
+
+    // 2async operation , depends on which one completes first can cause error
+    // subscription in suubscription to ensure one executes after the other qm
   }
 
-  ngOnInit() {
+ 
 
-  }
-
-
-  filter() {
-    this.filteredProducts = this.category ?
-      this.products.filter(p => p.category === this.category) :
-      this.products;
-  }
 }
