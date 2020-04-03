@@ -1,1 +1,16 @@
-<p>shopping-cart works!</p>
+<h1>Shopping Cart</h1>
+<h4 class="my-3">You have {{ nOfProds }} items in your shopping cart.</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of prods | async">
+            <td>{{ p.title }}</td>
+            <td>{{ p.quantity }}</td>
+        </tr>
+    </tbody>
+</table>

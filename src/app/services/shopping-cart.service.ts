@@ -43,12 +43,12 @@ export class ShoppingCartService {
         const increment = firebase.firestore.FieldValue.increment(n);
         this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).update(({ quantity: increment }));
       } else
-        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, quantity: 1 });
+        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, title: product.title, quantity: 1 });
     });
 
   }
 
-  async prodSum() {
+  async prods() {
     const cartId = await this.addOrGetCart();
     return this.db.collection('shopping-cart').doc(cartId).collection('items').valueChanges();
   }

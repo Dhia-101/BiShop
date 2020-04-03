@@ -29,7 +29,7 @@ export class NavBarComponent implements OnInit {
 
   async ngOnInit() {
 
-    (await this.cartService.prodSum()).subscribe(p => {
+    (await this.cartService.prods()).subscribe(p => {
       this.prods = 0;
       for (var i = 0; i < p.length; i++)
         this.prods += p[i].quantity;
