@@ -1,0 +1,5 @@
+	-style the navbar 
+	-style the cart page
+	-fix the add to cart db button bug
+	-fix the 0 item appearing on the shopping cart
+	-solve hacker rank challenge

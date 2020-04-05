@@ -9,12 +9,17 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 })
 export class ProductCardComponent implements OnInit {
   @Input('product') product;
-  quantity: number;
+  quantity: number = 0;
 
   constructor(private cartService: ShoppingCartService) { }
 
 
   async ngOnInit() {
+    this.check();
+  }
+
+
+  async check() {
     (await this.cartService.getCart(this.product))
       .subscribe((p: any) => {
         this.quantity = p.quantity ? p.quantity : 0;
@@ -23,10 +28,12 @@ export class ProductCardComponent implements OnInit {
 
   addToCart() {
     this.cartService.addOrRemove(this.product, 1);
+    this.quantity++;
   }
 
   removeFromCart() {
     this.cartService.addOrRemove(this.product, -1);
+    this.quantity--;
   }
 
 }
