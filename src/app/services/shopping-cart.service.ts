@@ -40,7 +40,7 @@ export class ShoppingCartService {
     let cart = await this.addOrGetCart();
 
     this.getItem(cart, product.uid).pipe(take(1)).subscribe(p => {
-      const incrementPriceTotal = firebase.firestore.FieldValue.increment(product.price);
+      const incrementPriceTotal = firebase.firestore.FieldValue.increment(product.price * n);
       this.db.collection('shopping-cart').doc(cart).update({ totalPrice: incrementPriceTotal });
       if (p.exists) {
         const increment = firebase.firestore.FieldValue.increment(n);

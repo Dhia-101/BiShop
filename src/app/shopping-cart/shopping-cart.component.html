@@ -19,7 +19,7 @@
         <tr>
             <td></td>
             <td></td>
-            <td>{{ totalPrice.totalPrice }} TND</td>
+            <td *ngIf="totalPrice.totalPrice !== 0">{{ totalPrice.totalPrice }} TND</td>
         </tr>
     </tfoot>
 </table>
