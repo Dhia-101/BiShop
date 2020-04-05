@@ -11,15 +11,16 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 
 
 export class NavBarComponent implements OnInit {
-  prods;
   user;
   isAdmin;
+  nOfProds: number;
 
 
-  constructor(private authService: AuthService,
-    private cartService: ShoppingCartService) {
+  constructor(
+    private authService: AuthService,
+    private cartService: ShoppingCartService
+  ) {
     this.user = authService.getUser();
-
     this.authService.isAdmin()
       .subscribe((val: User) => {
         this.isAdmin = val.isAdmin;
@@ -28,23 +29,21 @@ export class NavBarComponent implements OnInit {
 
 
   async ngOnInit() {
+    await this.getTotalProd();
+  }
 
-    (await this.cartService.prods()).subscribe(p => {
-      this.prods = 0;
-      for (var i = 0; i < p.length; i++)
-        this.prods += p[i].quantity;
+  async getTotalProd() {
+    const val = (await this.cartService.prods());
+    val.subscribe(products => {
+      // variable modifying scope
+      this.nOfProds = 0;
+      for (let product of products)
+        this.nOfProds += product.quantity;
     });
   }
 
 
   logout() {
-
     this.authService.logout();
   }
-
-  async test() {
-
-  }
-
-
 }

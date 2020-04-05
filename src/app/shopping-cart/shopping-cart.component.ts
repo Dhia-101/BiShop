@@ -9,16 +9,26 @@ import { ProductService } from '../services/product.service';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  nOfProds: number;
+  nOfProds;
   prods;
   constructor(private cartService: ShoppingCartService) { }
 
   async ngOnInit() {
-    this.prods = (await this.cartService.prods());
-    this.prods.subscribe(p => {
+    (await this.cartService.prods())
+      .subscribe(p => {
+        this.prods = p.filter(p2 => p2.quantity !== 0);
+      });
+    await this.getTotalProd();
+
+  }
+
+  async getTotalProd() {
+    const val = (await this.cartService.prods());
+    val.subscribe(products => {
+      // variable modifying scope
       this.nOfProds = 0;
-      for (var i = 0; i < p.length; i++)
-        this.nOfProds += p[i].quantity;
+      for (let product of products)
+        this.nOfProds += product.quantity;
     });
   }
 

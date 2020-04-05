@@ -10,7 +10,7 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent{
+export class ProductsComponent {
   products: Product[];
   filteredProducts: Product[];
 
@@ -32,12 +32,7 @@ export class ProductsComponent{
         this.products.filter(p => p.category === this.category) :
         this.products;
     });
-
-
     // 2async operation , depends on which one completes first can cause error
     // subscription in suubscription to ensure one executes after the other qm
   }
-
- 
-
 }
