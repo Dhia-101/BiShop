@@ -5,12 +5,14 @@
         <tr>
             <th>Product</th>
             <th>Quantity</th>
+            <th>Total Price</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let p of prods">
             <td>{{ p.title }}</td>
             <td>{{ p.quantity }}</td>
+            <td>{{ p.totalPrice }} TND</td>
         </tr>
     </tbody>
 </table>

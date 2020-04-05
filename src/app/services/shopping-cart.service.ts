@@ -41,9 +41,10 @@ export class ShoppingCartService {
     this.getItem(cart, product.uid).pipe(take(1)).subscribe(p => {
       if (p.exists) {
         const increment = firebase.firestore.FieldValue.increment(n);
-        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).update(({ quantity: increment }));
+        const incrementPrice = firebase.firestore.FieldValue.increment(product.price * n);
+        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).update(({ quantity: increment, totalPrice: incrementPrice }));
       } else
-        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, title: product.title, quantity: 1 });
+        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, title: product.title, quantity: 1, totalPrice: product.price });
     });
 
   }
