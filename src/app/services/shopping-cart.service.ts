@@ -4,6 +4,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { Product } from '../models/Product';
 import * as firebase from 'firebase';
 import { take } from 'rxjs/operators';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,8 @@ export class ShoppingCartService {
     let cart = await this.addOrGetCart();
 
     this.getItem(cart, product.uid).pipe(take(1)).subscribe(p => {
+      const incrementPriceTotal = firebase.firestore.FieldValue.increment(product.price);
+      this.db.collection('shopping-cart').doc(cart).update({ totalPrice: incrementPriceTotal });
       if (p.exists) {
         const increment = firebase.firestore.FieldValue.increment(n);
         const incrementPrice = firebase.firestore.FieldValue.increment(product.price * n);
@@ -46,8 +49,14 @@ export class ShoppingCartService {
       } else
         this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, title: product.title, quantity: 1, totalPrice: product.price });
     });
-
   }
+
+  async getTotalPrice() {
+    let cart = await this.addOrGetCart();
+    return this.db.collection('shopping-cart').doc(cart).valueChanges();
+  }
+
+
 
   async prods() {
     const cartId = await this.addOrGetCart();
