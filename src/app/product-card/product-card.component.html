@@ -3,7 +3,7 @@
     <div class="card-body">
         <h5 class="card-title text-center my-3">{{ product.title }}</h5>
         <p class="card-text text-center">Price: {{ product.price }} TND</p>
-        <div class="card-footer row no-gutters">
+        <div class="custom row no-gutters">
             <button *ngIf="!quantity || quantity === 0; else updateQuantity" (click)="addToCart(product)"
                 class="btn btn-secondary btn-block">Add to Cart</button>
             <ng-template #updateQuantity>
