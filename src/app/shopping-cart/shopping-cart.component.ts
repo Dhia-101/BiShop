@@ -36,5 +36,12 @@ export class ShoppingCartComponent implements OnInit {
         this.nOfProds += product.quantity;
     });
   }
+  async test() {
+    (await this.cartService.prods()).subscribe(p => console.log(p));
+  }
+
+  async clearCart() {
+    await this.cartService.clearCart();
+  }
 
 }

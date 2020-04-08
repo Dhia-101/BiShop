@@ -10,19 +10,21 @@
     </thead>
     <tbody>
         <tr *ngFor="let p of prods">
-            <td>{{ p.title }}</td>
+            <td>{{ p?.title }}</td>
             <td>
                 <product-quantity class="custom card-footer" [product]="p"></product-quantity>
             </td>
-            <td>{{ p.totalPrice | number : '1.3-3' }} TND</td>
+            <td>{{ p?.totalPrice | number : '1.3-3' }} TND</td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
             <td></td>
             <td></td>
-            <td *ngIf="totalPrice.totalPrice > 0">{{ totalPrice.totalPrice | number : '1.3-3' }} TND</td>
+            <td *ngIf="totalPrice?.totalPrice > 0">{{ totalPrice?.totalPrice | number : '1.3-3' }} TND</td>
             <!-- pipe round to 1 digit before and 3  to 3 digits before decimal means only 3 -->
         </tr>
     </tfoot>
 </table>
+
+<button class="btn btn-danger btn-sm ml-4" (click)="clearCart()">Clear Shopping Cart</button>

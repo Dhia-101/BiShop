@@ -11,10 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ShoppingCartService {
 
+
   constructor(private db: AngularFirestore) { }
 
   private create() {
-    return this.db.collection('shopping-cart').add({ dateCreated: new Date().getTime() });
+    return this.db.collection('shopping-cart').add({ dateCreated: new Date().getTime(), totalPrice: 0 });
   }
 
 
@@ -22,6 +23,10 @@ export class ShoppingCartService {
     return this.db.collection('shopping-cart').doc(cart).collection('items').doc(prodId).get();
   }
 
+  async clearCart() {
+    const cartId = await this.addOrGetCart();
+    await this.db.collection('shopping-cart').doc(cartId).delete();
+  }
   async getCart(product) {
     const cartId = await this.addOrGetCart();
     return this.db.collection('shopping-cart').doc(cartId).collection('items').doc(product.uid).valueChanges();
@@ -47,7 +52,7 @@ export class ShoppingCartService {
         const incrementPrice = firebase.firestore.FieldValue.increment(product.price * n);
         this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).update(({ quantity: increment, totalPrice: incrementPrice }));
       } else
-        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, title: product.title, quantity: 1, totalPrice: product.price });
+        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, price: product.price, title: product.title, quantity: 1, totalPrice: product.price });
     });
   }
 

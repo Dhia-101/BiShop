@@ -4,12 +4,12 @@
     padding: 0;
     width: 250px;
     top: 32px;
-    background-color: transparent;
-    border-top: none;
+    background-color: red;
+    border: none;
 }
 
-.card-footer{
-    background-color: transparent;
+ .card-footer{
+    background-color: red;
 }
 
 /* try sttyle in goodle dev tools then change it in code if needed qm */
