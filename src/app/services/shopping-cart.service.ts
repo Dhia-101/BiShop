@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ThrowStmt } from '@angular/compiler';
 import { Product } from '../models/Product';
 import * as firebase from 'firebase';
 import { take } from 'rxjs/operators';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +23,18 @@ export class ShoppingCartService {
 
   async clearCart() {
     const cartId = await this.addOrGetCart();
-    await this.db.collection('shopping-cart').doc(cartId).delete();
+    await this.db.collection('shopping-cart').doc(cartId).set({ totalPrice: 0 });
+    // take one fixes observable blockage (stuck) problem qm
+    await this.db.collection('shopping-cart').doc(cartId).collection('items').valueChanges().pipe(take(1))
+      .subscribe(docs => {
+        console.log('test');
+        docs.forEach(p => {
+          this.db.collection('shopping-cart')
+            .doc(cartId).collection('items')
+            .doc(p.uid)
+            .update(({ quantity: 0, totalPrice: 0 }));
+        });
+      });
   }
   async getCart(product) {
     const cartId = await this.addOrGetCart();
