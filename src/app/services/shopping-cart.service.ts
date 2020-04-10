@@ -24,10 +24,9 @@ export class ShoppingCartService {
   async clearCart() {
     const cartId = await this.addOrGetCart();
     await this.db.collection('shopping-cart').doc(cartId).set({ totalPrice: 0 });
-    // take one fixes observable blockage (stuck) problem qm
+    // take one fixes observable blockage (stuck) problem
     await this.db.collection('shopping-cart').doc(cartId).collection('items').valueChanges().pipe(take(1))
       .subscribe(docs => {
-        console.log('test');
         docs.forEach(p => {
           this.db.collection('shopping-cart')
             .doc(cartId).collection('items')
@@ -61,7 +60,7 @@ export class ShoppingCartService {
         const incrementPrice = firebase.firestore.FieldValue.increment(product.price * n);
         this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).update(({ quantity: increment, totalPrice: incrementPrice }));
       } else
-        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, price: product.price, title: product.title, quantity: 1, totalPrice: product.price });
+        this.db.collection('shopping-cart').doc(cart).collection('items').doc(product.uid).set({ uid: product.uid, imageURL: product.imageURL, price: product.price, title: product.title, quantity: 1, totalPrice: product.price });
     });
   }
 

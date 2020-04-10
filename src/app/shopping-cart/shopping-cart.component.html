@@ -3,6 +3,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>Product</th>
             <th>Quantity</th>
             <th>Total Price</th>
@@ -10,6 +11,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let p of prods">
+            <td>
+                <div [style.backgroundImage]="'url(' + p.imageURL +')'" class="thumbnail"></div>
+                <!-- div background to make the image not loose its ratio or look weird qm -->
+            </td>
             <td>{{ p?.title }}</td>
             <td>
                 <product-quantity class="custom card-footer" [product]="p"></product-quantity>
@@ -21,10 +26,12 @@
         <tr>
             <td></td>
             <td></td>
-            <td *ngIf="totalPrice?.totalPrice > 0">{{ totalPrice?.totalPrice | number : '1.3-3' }} TND</td>
+            <td></td>
+            <td *ngIf="prods.length">{{ totalPrice?.totalPrice | number : '1.3-3' }} TND</td>
             <!-- pipe round to 1 digit before and 3  to 3 digits before decimal means only 3 -->
         </tr>
     </tfoot>
 </table>
 
-<button class="btn btn-danger btn-sm ml-4" (click)="clearCart()">Clear Shopping Cart</button>
+<button *ngIf="prods.length" class="btn btn-light btn-sm ml-4" (click)="clearCart()">Clear Shopping Cart</button>
+<a *ngIf="prods.length" class="btn btn-primary btn-sm ml-2" routerLink="/checkout">Check Out</a>

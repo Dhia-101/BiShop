@@ -1,1 +1,32 @@
-<p>checkout works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <h2>Shipping</h2>
+            <form #shippingForm="ngForm" (ngSubmit)="placeOrder(shippingForm.value)">
+                <!-- ="ngForm was missing" -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input ngModel #name="ngModel" type="text" name="name" id="name" class="form-control"
+                        placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="addressL1">Address</label>
+                    <input ngModel #AddressL1="ngModel" type="text" name="AddressL1" id="AddressL1" class="form-control"
+                        placeholder="Line 1">
+                    <input ngModel #AddressL2="ngModel" type="text" name="AddressL2" id="AddressL2"
+                        class="form-control mt-4" placeholder="Line 2">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input ngModel #city="ngModel" type="text" name="city" id="city" class="form-control"
+                        placeholder="City">
+                </div>
+                <button class="btn btn-primary mt-3">Place Order</button>
+            </form>
+        </div>
+        <div class="col-md-5 side mx-5">
+            <h3 class="mt-2">Order Summary</h3>
+            <p>You have {{ nOfProds }} items in your shopping cart.</p>
+        </div>
+    </div>
+</div>
