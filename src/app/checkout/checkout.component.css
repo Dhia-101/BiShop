@@ -3,4 +3,6 @@
     border-radius: 4px;
     margin-top: 40px;
     padding: 30px;
+    height: fit-content;
+    font-weight: 1.25rem;
 }

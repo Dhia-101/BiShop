@@ -26,7 +26,18 @@
         </div>
         <div class="col-md-5 side mx-5">
             <h3 class="mt-2">Order Summary</h3>
-            <p>You have {{ nOfProds }} items in your shopping cart.</p>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">You have {{ nOfProds }} items in your shopping cart.</div>
+                <div class="list-group-item" *ngFor="let p of prods">{{ p.quantity }} x {{ p.title }}
+                    <span class="float-right">
+                        {{ p.totalPrice | number : '1.3-3' }} TND
+                    </span>
+                </div>
+                <div class="list-group-item font-weight-bold">Total
+                    <span class="float-right">{{ totalPrice?.totalPrice | number : '1.3-3' }}</span>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
