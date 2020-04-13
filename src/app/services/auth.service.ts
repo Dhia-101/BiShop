@@ -9,12 +9,10 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  test;
   constructor(
     private db: AngularFirestore,
     private AFAuth: AngularFireAuth,
     private router: Router) {
-    this.test = false;
   }
 
   getUser() {
@@ -30,9 +28,7 @@ export class AuthService {
   }
 
   login() {
-
     this.AFAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
-
   }
 
   logout() {

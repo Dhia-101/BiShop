@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { OrderService } from '../services/order.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
   nOfProds;
   prods;
   totalPrice;
-  constructor(private cartService: ShoppingCartService) { }
+  userId;
+  constructor(
+    private cartService: ShoppingCartService,
+    private orderService: OrderService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   async ngOnInit() {
     const val = (await this.cartService.prods());
@@ -30,10 +39,26 @@ export class CheckoutComponent implements OnInit {
       .subscribe(price => {
         this.totalPrice = price;
       });
+
+    this.authService.getUser()
+      .subscribe(p => this.userId = p);
+  }
+
+  ngOnDestroy() {
+
   }
 
   placeOrder(shippingForm) {
-    console.log(shippingForm);
+    let order = {
+      datePlaced: new Date().getTime(),
+      shipping: shippingForm,
+      items: this.prods,
+      totalPrice: this.totalPrice,
+      userId: this.userId.uid,
+      userName: this.userId.displayName
+    };
+    this.orderService.create(order);
+    this.router.navigate(['/order-success', this.userId.uid]);
   }
 
 }
