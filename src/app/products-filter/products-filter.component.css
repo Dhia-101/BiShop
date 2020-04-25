@@ -1,7 +1,7 @@
 
 .list-group-item{
 
-    background-color: #569354;
+    background-color: #7DDE92;
     color: white;
     border-radius: 0px;
 }
@@ -9,7 +9,7 @@
 
 .list-group-item.active{
 
-    background-color:#DBCBBA;
+    background-color:#62A87C;
     color: white;
     border: none;
 }

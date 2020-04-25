@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top">
-    <a class="navbar-brand" routerLink="/">BiShop</a>
+    <a class="navbar-brand ml-3" routerLink="/">BiShop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation"
+        (click)="isMenuCollapsed = !isMenuCollapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/shopping-cart">Shopping Cart <span
@@ -13,15 +14,18 @@
                         {{ nOfProds }}
                     </span> </a>
             </li>
+        </ul>
+        <ul class="navbar-nav">
             <ng-template #anonymousUser>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/login">Login</a>
                 </li>
             </ng-template>
-            <li ngbDropdown class="nav-item dropdown show" *ngIf="user | async as user; else anonymousUser">
+            <li ngbDropdown class="nav-item dropdown show dropleft mr-3"
+                *ngIf="user | async as user; else anonymousUser">
                 <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">{{ user.displayName }}</a>
-                <div ngbDropdownMenu class="dropdown-menu show" aria-labelledby="dropdown01">
+                <div ngbDropdownMenu class="dropdown-menu show " aria-labelledby="dropdown01">
                     <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
                     <a class="dropdown-item" *ngIf="isAdmin" routerLink="/admin/orders">Manager Orders</a>
                     <a class="dropdown-item" *ngIf="isAdmin" routerLink="/admin/products">manage Products</a>

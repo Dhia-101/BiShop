@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit {
   user;
   isAdmin;
   nOfProds: number;
-
+  public isMenuCollapsed = true;
 
   constructor(
     private authService: AuthService,
