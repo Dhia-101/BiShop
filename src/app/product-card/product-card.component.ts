@@ -31,5 +31,9 @@ export class ProductCardComponent implements OnInit {
     this.quantity++;
   }
 
+  decrement() {
+    this.quantity--;
+  }
+
 
 }
