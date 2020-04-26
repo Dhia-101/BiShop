@@ -7,25 +7,11 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
   templateUrl: './product-quantity.component.html',
   styleUrls: ['./product-quantity.component.css']
 })
-export class ProductQuantityComponent implements OnInit {
+export class ProductQuantityComponent {
   @Input('product') product;
-  @Output() minus = new EventEmitter();
-  quantity: number = 1;
+  @Input('quantity') quantity;
 
   constructor(private cartService: ShoppingCartService) { }
-
-
-  async ngOnInit() {
-    this.check();
-  }
-
-
-  async check() {
-    (await this.cartService.getCart(this.product))
-      .subscribe((p: any) => {
-        this.quantity = p.quantity ? p.quantity : 0;
-      });
-  }
 
   addToCart() {
     this.cartService.addOrRemove(this.product, 1);
@@ -34,7 +20,6 @@ export class ProductQuantityComponent implements OnInit {
 
   removeFromCart() {
     this.cartService.addOrRemove(this.product, -1);
-    this.minus.emit();
     this.quantity--;
   }
 

@@ -22,18 +22,13 @@ export class ProductCardComponent implements OnInit {
   async check() {
     (await this.cartService.getCart(this.product))
       .subscribe((p: any) => {
-        this.quantity = p.quantity ? p.quantity : 0;
+        this.quantity = p ? p.quantity : 0;
       });
   }
 
   addToCart() {
     this.cartService.addOrRemove(this.product, 1);
     this.quantity++;
+    console.log("card" + this.quantity);
   }
-
-  decrement() {
-    this.quantity--;
-  }
-
-
 }

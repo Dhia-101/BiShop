@@ -9,7 +9,6 @@ import { take } from 'rxjs/operators';
 })
 export class ShoppingCartService {
 
-
   constructor(private db: AngularFirestore) { }
 
   private create() {
